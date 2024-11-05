@@ -6,8 +6,8 @@ function Consultas() {
 
     return(
         <>
-            <div className="my-4 mx-8">
-                <div className="font-sans">
+            <div className="my-4 mx-8 font-sans">
+                <div className="">
                     <h1 className="text-2xl font-bold text-slate-800 pb-2">Consultas</h1>
                     <div className="my-4">
                         <IndicadoresConsultas />

@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import IndicadoresConsultas from "../Components/IndicadoresConsultas";
 import ListaConsultas from "../Components/ListaConsultas";
+import NovaConsulta from "./NovaConsulta";
 
 function Consultas() {
 
@@ -19,14 +21,18 @@ function Consultas() {
                                 <input type="date" className="bg-gray-200 rounded-lg px-2 py-1"></input>
                                 <input type="text" className="bg-gray-200 rounded-lg px-2 py-1 w-96"></input>
                             </div>
-                            <button className="bg-slate-800 rounded-lg px-4 py-1 text-gray-200 flex items-center text-center gap-2">
-                                <span className="text-2xl align-middle mb-1">
-                                    +
-                                </span> 
-                                <span className="align-middle">
-                                    Nova Consulta
-                                </span>
-                            </button>
+                            <Link to='../novaconsulta'>
+                                <button className="bg-slate-800 rounded-lg px-4 py-1 text-gray-200 flex items-center text-center gap-2 hover:scale-105 transition-all">
+                                    <span className="text-2xl align-middle mb-1">
+                                        +
+                                    </span> 
+                                    <span className="align-middle">
+                                        
+                                            Nova Consulta
+                                        
+                                    </span>
+                                </button>
+                            </Link>
                         </form>
                     </div>
                 </div>

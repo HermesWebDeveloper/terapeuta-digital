@@ -1,8 +1,20 @@
 import { Link } from "react-router-dom";
 import ExibirConsulta from "../Components/ExibirConsulta";
+import { useEffect, useState } from "react";
+import axios from 'axios'
 
 
 function NovaConsulta() {
+
+    async function salvarDados (dadosConsulta) {
+
+        try {
+            const response = await axios.post('http://localhost:10000/v1/consultas/', dadosConsulta);
+            console.log('Dados salvos com sucesso: ', dadosConsulta);
+        } catch (error) {
+            console.error('Erro ao salvar dados: ', error);
+        };
+    };
 
     return(
         <>
@@ -11,7 +23,7 @@ function NovaConsulta() {
                     <div className="flex gap-3">
                         <div className="flex items-center">
                             <Link to='../consultas'>
-                                <a href="#" class="flex items-center text-slate-800 bg-gray-300 rounded p-2 w-10 hover:w-12 transition-all">
+                                <a href="#" className="flex items-center text-slate-800 bg-gray-300 rounded p-2 w-10 hover:w-12 transition-all">
                                     <img src="/imgs/voltar.svg"></img>
                                 </a>
                             </Link>
@@ -23,7 +35,7 @@ function NovaConsulta() {
                     </div>
                 </div>
                 <div>
-                    <ExibirConsulta />
+                    <ExibirConsulta salvarDados={salvarDados}/>
                 </div>
             </div>
         </>

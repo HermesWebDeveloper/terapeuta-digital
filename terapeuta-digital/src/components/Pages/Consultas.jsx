@@ -2,9 +2,25 @@ import { Link } from "react-router-dom";
 import IndicadoresConsultas from "../Components/IndicadoresConsultas";
 import ListaConsultas from "../Components/ListaConsultas";
 import NovaConsulta from "./NovaConsulta";
+import { useEffect, useState } from "react";
+import axios from 'axios';  
 
 function Consultas() {
 
+    const [consultas, setConsultas] = useState([]);
+
+    useEffect( () => {
+        buscarConsultas();
+    }, [])
+
+    async function buscarConsultas(){
+        try {
+            const response = await axios.get('http://localhost:10000/v1/consultas/search');
+            setConsultas(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar consultas: ' + error);
+        }
+    };
 
     return(
         <>
@@ -36,7 +52,7 @@ function Consultas() {
                         </form>
                     </div>
                 </div>
-                <ListaConsultas />
+                <ListaConsultas lista_consultas={consultas}/>
             </div>
         </>
     )

@@ -1,9 +1,25 @@
 import { Link, useParams } from "react-router-dom";
 import ExibirConsulta from "../Components/ExibirConsulta";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 function EditarConsulta() {
 
+    const [consulta, setConsulta] = useState({});
     const { id } = useParams();
+
+    useEffect569(() => {
+        buscarConsultas();
+    }, [id]);
+
+    async function buscarConsultas(){
+        try {
+            const response = await axios.get(`http://localhost:10000/v1/consultas/${id}`);
+            setConsulta(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar consultas: ' + error);
+        }
+    };
 
     return(
         <>
@@ -12,9 +28,9 @@ function EditarConsulta() {
                     <div className="flex gap-3">
                         <div className="flex items-center">
                             <Link to='../consultas'>
-                                <a href="#" class="flex items-center text-slate-800 bg-gray-300 rounded p-2 w-10 hover:w-12 transition-all">
+                                <div href="#" className="flex items-center text-slate-800 bg-gray-300 rounded p-2 w-10 hover:w-12 transition-all">
                                     <img src="/imgs/voltar.svg"></img>
-                                </a>
+                                </div>
                             </Link>
                         </div>
                         <div>
@@ -24,7 +40,7 @@ function EditarConsulta() {
                     </div>
                 </div>
                 <div>
-                    <ExibirConsulta />
+                    <ExibirConsulta consulta={consulta} />
                 </div>
             </div>
         </>

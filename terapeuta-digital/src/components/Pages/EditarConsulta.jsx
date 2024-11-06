@@ -1,23 +1,40 @@
 import { Link, useParams } from "react-router-dom";
-import ExibirConsulta from "../Components/ExibirConsulta";
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import ConsultaEditar from "../Components/ConsultaEditar";
 
 function EditarConsulta() {
 
     const [consulta, setConsulta] = useState({});
     const { id } = useParams();
 
-    useEffect569(() => {
+    useEffect(() => {
         buscarConsultas();
     }, [id]);
+
+    async function salvarDados(dadosConsulta) {
+        try {
+            const response = await axios.put(`http://localhost:10000/v1/consultas/${id}`, dadosConsulta);
+        } catch (error) {
+            console.error('Erro ao enviar novos dados da consulta: ' + error);
+        }
+    };
 
     async function buscarConsultas(){
         try {
             const response = await axios.get(`http://localhost:10000/v1/consultas/${id}`);
             setConsulta(response.data);
+            console.log(response.data);
         } catch (error) {
             console.error('Erro ao buscar consultas: ' + error);
+        }
+    };
+
+    async function excluirConsulta () {
+        try {
+            await axios.delete(`http://localhost:10000/v1/consultas/${id}`);
+        } catch (error) {
+            console.error('Erro ao solicitar deleção da consulta: ' + error);
         }
     };
 
@@ -40,7 +57,11 @@ function EditarConsulta() {
                     </div>
                 </div>
                 <div>
-                    <ExibirConsulta consulta={consulta} />
+                    {consulta ? (  // Condição para renderizar apenas se consulta tiver dados
+                        <ConsultaEditar consulta={consulta} salvarDados={salvarDados} />
+                    ) : (
+                        <p>Carregando dados da consulta...</p>
+                    )}
                 </div>
             </div>
         </>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import ExibirConsulta from "../Components/ExibirConsulta";
 import { useEffect, useState } from "react";
 import axios from 'axios'
+import ConsultaNova from "../Components/ConsultaNova";
 
 
 function NovaConsulta() {
@@ -35,7 +35,7 @@ function NovaConsulta() {
                     </div>
                 </div>
                 <div>
-                    <ExibirConsulta salvarDados={salvarDados}/>
+                    <ConsultaNova salvarDados={salvarDados}/>
                 </div>
             </div>
         </>

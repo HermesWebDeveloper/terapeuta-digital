@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-    function ExibirConsulta({ salvarDados, consulta }) {
+    function ConsultaNova({ salvarDados }) {
 
         const [nome, setNome] = useState('');
         const [data, setData] = useState('');
@@ -8,18 +8,6 @@ import { useEffect, useState } from "react";
         const [qp, setQp] = useState('');
         const [hda, setHda] = useState('');
         const [prt, setPrt] = useState('');
-
-        useEffect( () => {
-            console.log(consulta.nome);
-            if (consulta.nome) {
-                setNome(consulta.nome);
-                setData(consulta.data);
-                setRetorno(consulta.retorno);
-                setQp(consulta.qp);
-                setHda(consulta.hda);
-                setPrt(consulta.prt);
-            };
-        }, [consulta]);
 
         function prepararDados(e) {
             e.preventDefault();
@@ -36,7 +24,7 @@ import { useEffect, useState } from "react";
             if (salvarDados){
                 salvarDados(dadosConsulta);
             }
-            };
+        };
 
         return(
             <>
@@ -81,4 +69,4 @@ import { useEffect, useState } from "react";
         )
     }
 
-    export default ExibirConsulta;
+    export default ConsultaNova;

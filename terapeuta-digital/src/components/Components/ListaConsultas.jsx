@@ -25,14 +25,14 @@ function ListaConsultas({ lista_consultas }) {
                                 <td className="h-10 text-center">{format(new Date(consulta.data), 'dd/MM/yyyy')}</td>
                                 <td className="h-10 text-center">{format(new Date(consulta.retorno), 'dd/MM/yyyy')}</td>
                                 <td className="h-10 text-center flex justify-center items-center gap-2">
-                                    <a>
-                                        <Link to='1'>
+                                    <div>
+                                        <Link to={`./${consulta.consulta_id}`}>
                                             <img src="./imgs/editar.svg" width='25px'></img>
                                         </Link>
-                                    </a>
-                                    <a>
+                                    </div>
+                                    <div>
                                         <img src="./imgs/imprimir.svg" width='25px'></img>
-                                    </a>
+                                    </div>
                                 </td>
                             </tr>
                         ))}

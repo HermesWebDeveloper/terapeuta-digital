@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import IndicadoresConsultas from "../Components/IndicadoresConsultas";
 import ListaConsultas from "../Components/ListaConsultas";
-import NovaConsulta from "./NovaConsulta";
 import { useEffect, useState } from "react";
 import axios from 'axios';  
 
 function Consultas() {
 
     const [consultas, setConsultas] = useState([]);
+    const [filterData, setFilterData] = useState([]);
 
     useEffect( () => {
         buscarConsultas();
@@ -17,8 +17,22 @@ function Consultas() {
         try {
             const response = await axios.get('http://localhost:10000/v1/consultas/search');
             setConsultas(response.data);
+            console.log(response.data);
         } catch (error) {
-            console.error('Erro ao buscar consultas: ' + error);
+            console.error('Erro ao buscar consultas: ', error);
+        }
+    };
+
+    async function filtrarDatas(dataFiltro) {
+        try {
+            console.log(dataFiltro)
+            const response = await axios.get(`http://localhost:10000/v1/consultas/filter`, {
+                params: { dataFiltro: dataFiltro }
+            });
+            setConsultas(response.data);
+            console.log(response.data)
+        } catch (error) {
+            console.error('Erro ao filtrar consultas por data: ', error);
         }
     };
 
@@ -34,7 +48,10 @@ function Consultas() {
                     <div className="py-2">
                         <form className="flex gap-5 justify-between">
                             <div className="flex gap-5">
-                                <input type="date" className="bg-gray-200 rounded-lg px-2 py-1"></input>
+                                <input type="date" className="bg-gray-200 rounded-lg px-2 py-1" value={filterData} onChange={(e) => {
+                                    setFilterData(e.target.value);
+                                    filtrarDatas(e.target.value);
+                                }}></input>
                                 <input type="text" className="bg-gray-200 rounded-lg px-2 py-1 w-96"></input>
                             </div>
                             <Link to='../novaconsulta'>

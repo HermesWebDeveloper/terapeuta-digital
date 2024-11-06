@@ -30,6 +30,8 @@ function EditarConsulta() {
         }
     };
 
+    
+
     async function excluirConsulta () {
         try {
             await axios.delete(`http://localhost:10000/v1/consultas/${id}`);
